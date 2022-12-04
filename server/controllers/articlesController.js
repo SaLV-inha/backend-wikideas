@@ -2,34 +2,32 @@ const { serviceEncyclopedia } = require("../services/serviceEncyclopedia")
 
 const articlesController = {
   getArticleById: async (req, res) => {
-    let id = req.params.id
+    let { _id } = req.params
 
-    const article = serviceEncyclopedia.findById(id)
+    const article = await serviceEncyclopedia.findById(_id)
 
-    if (!article) {
-      return res.notFound(console.log("Articulo no encontrado"))
-      //aqui no deberiamos mostrar el articulo de api?
-    }
-    res.json(dto)
-    return res.ok(console.log("Muartestra articulo de la api"))
+    // if (!article) {
+    //   return res.notFound(console.log("Articulo no encontrado"))
+    //   //aqui no deberiamos mostrar el articulo de api?
+    // }
+
+    res.json({ message: "200 OK", article })
   },
   getArticle: async (req, res) => {
     const articles = await serviceEncyclopedia.getAll()
-    res.ok({ message: "ok", articles: articles })
-  },
-  getArticleByKey: async (req, res) => {
-    let key = req.params.key
-    if (!{ key, value }) {
-      return res.notFound(console.log("mal ingreso del usuario"))
-    }
-    return res.ok(console.log("Articulo encontrado"))
+    res.ok({ message: "200 OK", articles })
   },
   postArticle: async (req, res) => {
-    let { key, value } = req.body
-    if (!{ key, value }) {
-      return res.badRequest(console.log("mal ingreso del usuario"))
+    let { name, body } = req.body
+    // if (!{ key, value }) {
+    //   return res.badRequest(console.log("mal ingreso del usuario"))
+    // }
+    const articleNew = {
+      name,
+      body,
     }
-    return res.created(console.log("Articulo encontrado"))
+    const result = serviceEncyclopedia.addArticle(articleNew)
+    return res.json({ message: "200 OK", result: "Articulo creado" })
   },
   putArticleById: async (req, res) => {
     let id = req.params.id
@@ -45,9 +43,6 @@ const articlesController = {
       )
     }
     //aqui va la misma logica del posto con los valores que toma del {name, body}
-  },
-  putArticleByKey: async (req, res) => {
-    let key = req.params.key
   },
 }
 

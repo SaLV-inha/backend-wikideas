@@ -19,6 +19,10 @@ const serviceEncyclopedia = {
     const result = await dao.deleteById(id)
     return result
   },
+  addArticle: async article => {
+    const result = await dao.add(article)
+    return result
+  },
 }
 
 module.exports = { serviceEncyclopedia }

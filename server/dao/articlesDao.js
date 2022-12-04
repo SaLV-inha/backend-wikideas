@@ -15,9 +15,16 @@ class ArticlesDAO {
     return { message: "Article successfully updated" }
   }
 
-  async deleteById(id) {
-    await articles.deleteOne({ _id })
-    return { message: "Article deleted" }
+  // async deleteById(id) {
+  //   await articles.deleteOne({ _id })
+  //   return { message: "Article deleted" }
+  // }
+
+  async add(article) {
+    const articleDB = new articles(article)
+    articleDB.save()
+
+    return { message: "OK" }
   }
 }
 
