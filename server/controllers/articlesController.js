@@ -10,7 +10,7 @@ const articlesController = {
   },
   getArticles: async (req, res) => {
     const articles = await serviceEncyclopedia.getAll()
-    res.ok({ message: "200 OK", articles })
+    res.json({ message: "200 OK", articles })
   },
   postArticle: async (req, res) => {
     let { name, body } = req.body
