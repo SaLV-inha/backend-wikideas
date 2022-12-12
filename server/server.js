@@ -20,19 +20,12 @@ try {
 }
 
 const PORT = process.env.PORT || 8080
-app.listen(PORT, err => {
-  if (err) throw new Error(err)
-  return console.log(`Running server express ${PORT}`)
-})
+app.listen(PORT, () => console.log(`RUNNING SERVER ON PORT: ${PORT}`))
 
-app.get("/api", articlesController.getArticle)
+app.get("/api", articlesController.getArticles)
 
-app.get("/api/:id", articlesController.getArticleById)
+app.get("/api/:_id", articlesController.getArticleById)
 
-app.get("/api/:key", articlesController.getArticleByKey)
+app.post("/api", articlesController.postArticle)
 
-app.post("/api/", articlesController.postArticle)
-
-app.put("/api/:id", articlesController.putArticleById)
-
-app.put("/api/:key", articlesController.putArticleByKey)
+app.put("/api", articlesController.putArticleById)

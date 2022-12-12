@@ -11,13 +11,25 @@ class ArticlesDAO {
   }
 
   async update({ _id, name, body }) {
-    await articles.updateOne({ _id }, { $set: name, body })
-    return { message: "Article successfully updated" }
+    try {
+      await articles.updateOne({ _id }, { $set: { name, body } })
+      return { message: `El artículo id:${_id} ha actualizado con éxito` }
+    } catch (error) {
+      console.error("*************Error: ", error)
+      return { message: `Error del servidor` }
+    }
   }
 
-  async deleteById(id) {
-    await articles.deleteOne({ _id })
-    return { message: "Article deleted" }
+  // async deleteById(id) {
+  //   await articles.deleteOne({ _id })
+  //   return { message: "Article deleted" }
+  // }
+
+  async add(article) {
+    const articleDB = new articles(article)
+    articleDB.save()
+
+    return { message: "OK" }
   }
 }
 
