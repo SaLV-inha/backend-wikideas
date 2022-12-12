@@ -13,3 +13,5 @@ const asDTO = articles => {
     return new articleDTO(articles)
   }
 }
+
+module.exports = { asDTO }

@@ -14,6 +14,7 @@ const serviceEncyclopedia = {
   },
   getAll: async () => {
     const articles = await dao.getAll()
+    console.log(articles)
     return articles
   },
   updateById: async ({ _id, name, body }) => {
