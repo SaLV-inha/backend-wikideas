@@ -4,15 +4,24 @@ const dao = new ArticlesDAO()
 
 const serviceEncyclopedia = {
   findById: async id => {
-    const article = await dao.getById(id)
+    let article = await dao.getById(id)
+
+    !article
+      ? (article = { message: "Artículo no encontrado" })
+      : (article = { message: "200 OK", article })
+
     return article
   },
   getAll: async () => {
     const articles = await dao.getAll()
     return articles
   },
-  updateById: async article => {
-    const result = await dao.update(article)
+  updateById: async ({ _id, name, body }) => {
+    let result = await dao.getById(_id)
+    !result
+      ? (result = { message: "Artículo no encontrado" })
+      : (result = await dao.update({ _id, name, body }))
+
     return result
   },
   deleteById: async id => {
