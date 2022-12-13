@@ -1,4 +1,5 @@
 const { ArticlesDAO } = require("../dao/articlesDao")
+const { asDTO } = require("../dto/articlesDTO")
 
 const dao = new ArticlesDAO()
 
@@ -14,7 +15,10 @@ const serviceEncyclopedia = {
   },
   getAll: async () => {
     const articles = await dao.getAll()
-    return articles
+
+    const articlesDTO = asDTO(articles)
+    console.log(articlesDTO)
+    return articlesDTO
   },
   updateById: async ({ _id, name, body }) => {
     let result = await dao.getById(_id)
